@@ -1,5 +1,5 @@
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser } from 'puppeteer';
 
 export interface IPuppeteerProvider {
-    getPuppeteerAccess(): Promise<puppeteer.Page>;
+    getPuppeteerAccess(): Promise<Browser>;
 }
