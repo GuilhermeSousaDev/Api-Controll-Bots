@@ -6,6 +6,8 @@ export interface IUser {
     email: string;
     password: string;
     accountLevel: number;
+    nextLevelXp: number;
+    xp: number;
     bots: string[];
     createdAt: Date;
     updatedAt: Date;
