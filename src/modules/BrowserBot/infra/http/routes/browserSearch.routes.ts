@@ -10,7 +10,7 @@ browserSearchRouter.patch(
     celebrate({
         [Segments.BODY]: {
             url: Joi.string().required(),
-        }
+        },
     }),
     browserSearchController.index,
 );
