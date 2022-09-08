@@ -1,6 +1,6 @@
 import { celebrate, Joi, Segments } from "celebrate";
 import { Router } from "express";
-import ElementDataSearchController from "../controllers/ElementDataSearchController";
+import ElementDataSearchController from "../controllers/ElementTextSearchController";
 
 const elementDataSearchRouter = Router();
 const elementDataSearchController = new ElementDataSearchController();

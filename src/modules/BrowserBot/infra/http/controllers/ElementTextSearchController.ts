@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import ElementDataSearchService from "../../../services/ElementDataSearchService";
+import ElementDataSearchService from "../../../services/ElementTextSearchService";
 
 export default class ElementDataSearchController {
     public async index(req: Request, res: Response): Promise<Response> {
