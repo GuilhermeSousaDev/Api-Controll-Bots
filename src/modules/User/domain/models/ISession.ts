@@ -1,4 +1,6 @@
+import { IUser } from "./IUser";
+
 export interface ISession {
-    email: string;
-    password: string;
+    user: IUser;
+    token: string;
 }

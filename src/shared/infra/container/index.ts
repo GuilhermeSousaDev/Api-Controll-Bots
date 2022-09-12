@@ -4,6 +4,7 @@ import UserRepository from '../../../modules/User/infra/typeorm/repositories/Use
 
 import './providers/Puppeteer';
 import './providers/JwtProvider';
+import './providers/BcryptProvider';
 
 container.registerSingleton<IUserRepository>(
     'userRepository',

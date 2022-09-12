@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import { IBcryptProvider } from "../../../shared/infra/container/providers/BcryptProvider/models/IBcryptProvider";
 import AppError from "../../../shared/infra/errors/AppError";
 import { ICreateUser } from "../domain/models/ICreateUser";
 import { IUser } from "../domain/models/IUser";
@@ -9,6 +10,8 @@ export default class CreateUserService {
     constructor(
         @inject('userRepository')
         private userRepository: IUserRepository,
+        @inject('bcryptProvider')
+        private bcryptProvider: IBcryptProvider,
     ) {}
 
     public async execute({ name, email, password }: ICreateUser): Promise<IUser> {
@@ -23,6 +26,8 @@ export default class CreateUserService {
             email,
             password,
         });
+
+        user.password = await this.bcryptProvider.generateHash(password);
 
         await this.userRepository.save(user);
 
