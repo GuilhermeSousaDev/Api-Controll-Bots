@@ -37,7 +37,7 @@ export default class GeneratePagePdfService {
         await page.goto(url, { waitUntil: 'networkidle2' });
 
         const path = `
-            pdf-bot-${user.name}-${crypto.randomBytes(8).toString('hex')}-print
+            ${user.name}-${crypto.randomBytes(8).toString('hex')}-print.pdf
         `;
 
         await page.pdf({
