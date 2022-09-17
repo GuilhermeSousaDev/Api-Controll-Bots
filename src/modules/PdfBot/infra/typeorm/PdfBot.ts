@@ -15,7 +15,7 @@ export default class PdfBot implements IPdfBot {
     id: ObjectID;
     
     @Column()
-    unlockLevel: 5;
+    unlockLevel: 2;
 
     @CreateDateColumn({ default: () => 'NOW()' })
     createdAt: Date;

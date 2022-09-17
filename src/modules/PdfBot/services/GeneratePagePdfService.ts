@@ -1,6 +1,6 @@
-import crypto from 'crypto';
-import fs from 'fs';
+import { PDFOptions } from 'puppeteer';
 import { inject, injectable } from "tsyringe";
+import { IBcryptProvider } from '../../../shared/infra/container/providers/BcryptProvider/models/IBcryptProvider';
 import { IPuppeteerProvider } from "../../../shared/infra/container/providers/Puppeteer/models/IPuppeteerProvider";
 import AppError from "../../../shared/infra/errors/AppError";
 import { IUserRepository } from "../../User/domain/repositories/IUserRepository";
@@ -15,6 +15,8 @@ export default class GeneratePagePdfService {
         private userRepository: IUserRepository,
         @inject('pdfBot')
         private pdfBotInfo: IPdfBot,
+        @inject('bcryptProvider')
+        private bcryptProvider: IBcryptProvider,
     ) {}
 
     public async execute(url: string, user_id: string): Promise<string> {
@@ -36,21 +38,17 @@ export default class GeneratePagePdfService {
 
         await page.goto(url, { waitUntil: 'networkidle2' });
 
-        const path = `
-            ${user.name}-${crypto.randomBytes(8).toString('hex')}-print.pdf
-        `;
+        const hash = await this.bcryptProvider.generateHash(user.id.toString());
 
-        await page.pdf({
-            path,
+        const options: PDFOptions = {
+            path: `pdfs/${user.name}-${hash}.pdf`,
             format: 'a4',
             landscape: true,
             printBackground: true,
-        });
-
-        if (fs.existsSync(path)) {
-            await browser.close();
         }
 
-        return path;
+        await page.pdf(options);
+
+        return options.path;
     }
 }
